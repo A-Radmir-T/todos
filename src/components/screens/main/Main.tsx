@@ -1,26 +1,97 @@
-import styles from './Main.module.scss'
-import { Todo } from '../../todo/Todo'
-import { todosService } from '../../../services/todos.service'
+import { todosService } from '../../../shared/services/todos.service'
 import { useEffect, useState } from 'react'
-import { ITodo } from '../../../models/todo.interface'
+import { ITask } from '../../../shared/interfaces'
+import { useDebounce } from '../../../hooks'
+import { findTasks, sortTasks } from '../../../shared/utils'
+import { MainLayout } from './Main-layout'
+import { handleChangeSearch } from '../../../handlers'
 
 export const Main = () => {
-	const [todosData, setTodosData] = useState<ITodo[]>([])
+	const [isLoading, setIsLoading] = useState(false)
+	const [isCreateTask, setIsCreateTask] = useState(false)
+	const [foundTodos, setFoundTodos] = useState<ITask[] | null>(null)
+	const [searchValue, setSearchValue] = useState<string>('')
+	const [todosData, setTodosData] = useState<ITask[]>([])
+	const [isSorted, setIsSorted] = useState<boolean>(false)
+	const debouncedValue = useDebounce(searchValue)
+
+	let prepareTodos = isSorted ? sortTasks(todosData) : todosData
 
 	useEffect(() => {
-		todosService.getAllTodos().then((data) => {
+		todosService.getAllTasks().then((data) => {
 			setTodosData(data)
 		})
 	}, [])
 
+	const clearSearch = (): void => {
+		setSearchValue('')
+		setFoundTodos(null)
+	}
+
+	useEffect(() => {
+		if (searchValue) {
+			const found = findTasks(todosData, debouncedValue)
+			setFoundTodos(found)
+			return
+		}
+		setFoundTodos(null)
+	}, [debouncedValue])
+
+	const handleDeleteTask = (id: string): void => {
+		setIsLoading(true)
+		clearSearch()
+		todosService
+			.deleteTask(id)
+			.then(() => {
+				const updatedTasks = todosData.filter((task) => task.id !== id)
+				setTodosData(updatedTasks)
+			})
+			.finally(() => setIsLoading(false))
+	}
+
+	const handleUpdateTask = (editedTask: ITask): void => {
+		setIsLoading(true)
+		clearSearch()
+		todosService
+			.editTask(editedTask)
+			.then((task) => {
+				const updatedTasks = todosData.map((task) => {
+					if (task.id === editedTask.id) {
+						task = { ...editedTask }
+					}
+					return task
+				})
+				setTodosData(updatedTasks)
+			})
+			.finally(() => setIsLoading(false))
+	}
+
+	const handleCreateTask = (newTask: ITask): void => {
+		setIsLoading(true)
+		setFoundTodos(null)
+		todosService
+			.createTask(newTask)
+			.then((newTask) => {
+				setTodosData([...todosData, newTask])
+			})
+			.finally(() => setIsLoading(false))
+		setIsCreateTask(false)
+	}
+
 	return (
-		<div>
-			<div className="container">
-				<div className={styles.todos}>
-					{todosData &&
-						todosData.map((todo, index) => <Todo todo={todo} key={todo.id} />)}
-				</div>
-			</div>
-		</div>
+		<MainLayout
+			prepareTodos={prepareTodos}
+			foundTodos={foundTodos}
+			searchValue={searchValue}
+			onChangeSearch={(event) => handleChangeSearch(event, setSearchValue)}
+			isSorted={isSorted}
+			setIsSorted={setIsSorted}
+			isCreateTask={isCreateTask}
+			setIsCreateTask={setIsCreateTask}
+			handleCreateTask={handleCreateTask}
+			handleUpdateTask={handleUpdateTask}
+			handleDeleteTask={handleDeleteTask}
+			isLoading={isLoading}
+		/>
 	)
 }
