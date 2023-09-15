@@ -15,12 +15,18 @@ export const Main = () => {
 	const [isSorted, setIsSorted] = useState<boolean>(false)
 	const debouncedValue = useDebounce(searchValue)
 
-	let prepareTodos = isSorted ? sortTasks(todosData) : todosData
+	let prepareTodos: ITask[] = todosData
+	if (isSorted) prepareTodos = sortTasks(todosData)
+	if (foundTodos) prepareTodos = foundTodos
 
 	useEffect(() => {
-		todosService.getAllTasks().then((data) => {
-			setTodosData(data)
-		})
+		setIsLoading(true)
+		todosService
+			.getAllTasks()
+			.then((data) => {
+				setTodosData(data)
+			})
+			.finally(() => setIsLoading(false))
 	}, [])
 
 	const clearSearch = (): void => {
@@ -80,7 +86,7 @@ export const Main = () => {
 
 	return (
 		<MainLayout
-			prepareTodos={prepareTodos}
+			preparedTodos={prepareTodos}
 			foundTodos={foundTodos}
 			searchValue={searchValue}
 			onChangeSearch={(event) => handleChangeSearch(event, setSearchValue)}
