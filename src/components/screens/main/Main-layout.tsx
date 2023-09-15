@@ -8,7 +8,7 @@ import { ChangeEvent, Dispatch, SetStateAction } from 'react'
 import { Loading } from '../../loading/Loading'
 
 interface MainLayoutProps {
-	prepareTodos: ITask[]
+	preparedTodos: ITask[]
 	foundTodos: ITask[] | null
 	searchValue: string
 	onChangeSearch: (event: ChangeEvent<HTMLInputElement>) => void
@@ -23,7 +23,7 @@ interface MainLayoutProps {
 }
 
 export const MainLayout = ({
-	prepareTodos,
+	preparedTodos,
 	foundTodos,
 	searchValue,
 	onChangeSearch,
@@ -45,6 +45,7 @@ export const MainLayout = ({
 						<button className={styles.createTask} onClick={() => setIsCreateTask(true)}>
 							+
 						</button>
+
 						<div className={styles.search}>
 							<input
 								type="text"
@@ -56,6 +57,7 @@ export const MainLayout = ({
 								<BsSearch />
 							</div>
 						</div>
+
 						<div className={styles.sort}>
 							<button
 								className={isSorted ? styles.active : ''}
@@ -64,14 +66,15 @@ export const MainLayout = ({
 								<AiOutlineSortAscending />
 							</button>
 						</div>
+
 						{isCreateTask && (
 							<CreateTask
 								handleCreateTask={handleCreateTask}
 								onCloseModal={() => setIsCreateTask(false)}
 							/>
 						)}
-						{prepareTodos.length && !foundTodos ? (
-							prepareTodos.map((task, index) => (
+						{preparedTodos.length ? (
+							preparedTodos.map((task, index) => (
 								<Task
 									key={task.id}
 									task={task}
@@ -82,15 +85,6 @@ export const MainLayout = ({
 						) : (
 							<div className={styles.void}>Пусто</div>
 						)}
-						{foundTodos &&
-							foundTodos.map((task, index) => (
-								<Task
-									key={task.id}
-									task={task}
-									handleUpdateTask={handleUpdateTask}
-									handleDeleteTask={handleDeleteTask}
-								/>
-							))}
 					</div>
 				</div>
 			</div>
