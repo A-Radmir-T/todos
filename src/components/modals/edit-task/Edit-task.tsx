@@ -15,11 +15,12 @@ export const EditTask = ({ task, handleUpdateTask, onCloseModal }: EditTaskProps
 		handleSubmit,
 		register,
 		setFocus,
-		formState: { isValid },
+		formState: { errors },
 	} = useForm({
 		defaultValues: {
 			title: task.title,
 		},
+		mode: 'onChange',
 	})
 	const onSubmit = (data: ITask) => {
 		const editedTask: ITask = { ...task, ...data }
@@ -33,11 +34,12 @@ export const EditTask = ({ task, handleUpdateTask, onCloseModal }: EditTaskProps
 		<Modal>
 			<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 				<h2>Редактировать</h2>
+				{errors?.title && <p className="error">{`${errors?.title?.message}`}</p>}
 				<input
 					type="text"
 					{...register('title', { required: 'Поле не должно быть пустым' })}
 				/>
-				<button type="submit" disabled={!isValid} className={styles.editBtn}>
+				<button type="submit" className={styles.editBtn}>
 					Изменить
 				</button>
 				<button type="button" onClick={() => onCloseModal()} className={styles.CancelBtn}>
