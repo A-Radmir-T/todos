@@ -1,0 +1,43 @@
+.buttons {
+	text-align: right;
+	button {
+		margin-left: 10px;
+	}
+}
+
+
+
+.actions {
+	display: flex;
+	justify-content: space-between;
+	button {
+		background-color: transparent;
+		border-radius: 5px;
+		font-size: 25px;
+		cursor: pointer;
+		padding: 3px;
+		margin-left: 10px;
+		svg {
+			color: #9b9a9a;
+
+			&:hover {
+				color: #fff;
+			}
+		}
+	}
+	.delete {
+		svg {
+			color: #f35d41;
+		}
+	}
+
+	.edit {
+		svg {
+			color: #000;
+		}
+	}
+}
+
+
+
+

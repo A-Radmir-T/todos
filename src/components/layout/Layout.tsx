@@ -1,15 +1,11 @@
 import { Header } from './header/Header'
-import { ReactNode } from 'react'
+import { Outlet } from 'react-router-dom'
 
-interface HeaderProps {
-	children: ReactNode
-}
-
-export const Layout = ({ children }: HeaderProps) => {
+export const Layout = () => {
 	return (
-		<>
+		<div>
 			<Header />
-			{children}
-		</>
+			<Outlet />
+		</div>
 	)
 }

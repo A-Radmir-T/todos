@@ -1,2 +1,1 @@
-export const DbUrl =
-	'https://todo-2bd8b-default-rtdb.asia-southeast1.firebasedatabase.app'
+export const DATABASE_URL = 'http://localhost:3005'

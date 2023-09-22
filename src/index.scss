@@ -41,6 +41,10 @@ code {
     monospace;
 }
 
+a {
+	text-decoration: none;
+}
+
 .container	{
 	max-width: 900px;
 	margin: 0 auto;
@@ -74,6 +78,12 @@ code {
 	background-color: #424040;
 	border-radius: 7px;
 	padding: 20px;
+
+	h2 {
+		text-align: center;
+		margin-bottom: 30px;
+	}
+
 	button {
 		margin-right: 10px;
 		width: 100px;
@@ -86,11 +96,37 @@ code {
 			color: #000000;
 		}
 	}
+	.form {
+
+		input, textarea {
+			width: 100%;
+			border-radius: 5px;
+			padding: 5px 10px;
+			margin-bottom: 20px;
+		}
+
+		textarea {
+			height: 200px;
+			font-size: 16px;
+			resize: none;
+		}
+
+		.cancelBtn {
+			background-color: #f3eaea;
+		}
+
+		.editBtn {
+			background-color: #57f159;
+		}
+	}
+
+	.confirm {
+		text-align: center;
+	}
 }
 
 .error {
 	color: red;
 }
-
 
 

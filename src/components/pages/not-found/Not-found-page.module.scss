@@ -1,0 +1,25 @@
+.wrap {
+	max-width: 600px;
+	text-align: center;
+	margin: 100px auto 0;
+}
+
+.title {
+	font-size: 100px;
+	margin-bottom: 30px;
+
+}
+
+.text {
+	font-size: 24px;
+	margin-bottom: 20px;
+}
+
+.link {
+	color: #7999e0;
+	border-bottom: 1px solid #7999e0;
+	&:hover {
+		color: #fff;
+		border-bottom: 1px solid #fff;
+	}
+}

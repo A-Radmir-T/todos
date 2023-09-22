@@ -1,8 +1,7 @@
-import styles from './Create-task.module.scss'
 import { Modal } from '../modal/Modal'
-import { FieldValue, useForm } from 'react-hook-form'
-import { ITask } from '../../../shared/interfaces/todo.interface'
-import { useEffect, useRef } from 'react'
+import { useForm } from 'react-hook-form'
+import { ITask } from '../../../shared/interfaces/'
+import { useEffect } from 'react'
 
 interface EditTaskProps {
 	handleCreateTask: (data: ITask) => void
@@ -29,17 +28,14 @@ export const CreateTask = ({ handleCreateTask, onCloseModal }: EditTaskProps) =>
 
 	return (
 		<Modal>
-			<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+			<form className="form" onSubmit={handleSubmit(onSubmit)}>
 				<h2>Создать задачу</h2>
 				{errors?.title && <p className="error">{`${errors?.title?.message}`}</p>}
-				<input
-					type="text"
-					{...register('title', { required: 'Поле не должно быть пустым' })}
-				/>
-				<button type="submit" className={styles.editBtn}>
+				<textarea {...register('title', { required: 'Поле не должно быть пустым' })} />
+				<button type="submit" className="editBtn">
 					Создать
 				</button>
-				<button type="button" onClick={() => onCloseModal()} className={styles.CancelBtn}>
+				<button type="button" onClick={() => onCloseModal()} className="cancelBtn">
 					Отмена
 				</button>
 			</form>
