@@ -1,9 +1,9 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import { ITask } from '../../../shared/interfaces'
+import { todosService } from '../../../shared/services/todos.service'
 import { findTasks, sortTasks } from '../../../shared/utils'
 import { MainPageLayout } from './Main-page-layout'
 import { useDebounce } from '../../../hooks'
-import { todosService } from '../../../shared/services/todos.service'
 
 export const MainPage = () => {
 	const [isLoading, setIsLoading] = useState(false)
