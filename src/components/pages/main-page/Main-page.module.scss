@@ -1,0 +1,123 @@
+.todos {
+	padding: 0 30px;
+}
+
+.search {
+	position: relative;
+	padding-bottom: 40px;
+	border-bottom: 1px solid #fff;
+
+	input {
+		border-radius: 20px;
+		padding: 5px 40px 5px 10px;
+		background-color: #D9D9D9;
+
+		&:focus {
+			background-color: #fff;
+		}
+	}
+}
+
+.searchIcon {
+	position: absolute;
+	right: -1px;
+	top: 0px;
+	padding: 6px 20px;
+	border-radius: 20px;
+	color: #000;
+	border: none;
+}
+
+.createTask {
+	position: fixed;
+	bottom: 50px;
+	right: 50px;
+	font-size: 60px;
+	cursor: pointer;
+	width: 60px;
+	height: 60px;
+	line-height: 60px;
+	border-radius: 50%;
+	transition: font-size 0.1s;
+
+	&:hover {
+		font-size: 65px;
+		line-height: 55px;
+		background-color: #a5eaae;
+	}
+}
+
+.sort {
+	margin-top: 5px;
+	margin-bottom: 5px;
+
+	button {
+		background-color: rgba(204, 204, 204, 0.3);
+		font-size: 20px;
+		border-radius: 7px;
+		border: 1px solid transparent;
+		line-height: 20px;
+		transition: all 0.3s;
+
+		&:hover {
+			border: 1px solid #000;
+		}
+
+		&.active {
+			background-color: #fff;
+		}
+	}
+}
+
+.void {
+	text-align: center;
+}
+
+.links {
+	a {
+		display: block;
+		overflow: hidden;
+		background-color: #000;
+		padding: 5px 30px 5px 10px;
+		margin: 10px 0;
+		border-radius: 7px;
+		font-size: 20px;
+		color: #f2f2f2;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		&:hover {
+			color: #9b9a9a;
+		}
+	}
+
+}
+
+@media (max-width: 1050px) {
+	.todos {
+		padding: 0 70px;
+	}
+	.createTask {
+		right: 10px;
+	}
+}
+
+@media (max-width: 750px) {
+	.links {
+		overflow-y: auto;
+		max-height: 430px;
+	}
+	.createTask {
+		position: relative;
+		bottom: -10px;
+		left: 0;
+		font-size: 50px;
+		width: 100%;
+		height: 40px;
+		line-height: 40px;
+		border-radius: 7px;
+		&:hover {
+			font-size:52px;
+			line-height: 42px;
+		}
+	}
+}
