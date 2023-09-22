@@ -36,10 +36,6 @@ export const MainPageLayout = ({
 			<div>
 				<div className="container">
 					<div className={styles.todos}>
-						<button className={styles.createTask} onClick={() => setIsCreateTask(true)}>
-							+
-						</button>
-
 						<div className={styles.search}>
 							<input
 								type="text"
@@ -72,6 +68,9 @@ export const MainPageLayout = ({
 								<div className={styles.void}>Пусто</div>
 							)}
 						</div>
+						<button className={styles.createTask} onClick={() => setIsCreateTask(true)}>
+							+
+						</button>
 
 						{isCreateTask && (
 							<CreateTask
